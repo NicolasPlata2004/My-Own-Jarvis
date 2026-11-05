@@ -1,0 +1,126 @@
+# ============================================================================
+#  Configuración de Jarvis (ejemplo). La primera vez que se abre Jarvis se copia
+#  a config.toml, que es el que debes editar. Luego: clic derecho en el orbe >
+#  "Recargar ajustes" (o cierra y vuelve a abrir Jarvis).
+# ============================================================================
+
+[usuario]
+nombre = "Estudiante"
+# Quién eres, para que la IA te hable con contexto.
+descripcion = "estudiante universitario"
+# Cómo te habla: "español neutro", "español colombiano", "español de España"…
+habla = "español neutro"
+# Cómo te habla cuando te dispersas: "suave", "firme" o "sargento"
+tono = "firme"
+
+[llm]
+# El "cerebro" pasa por FreeLLMAPI (https://github.com/tashfeenahmed/freellmapi),
+# una API local compatible con OpenAI que reparte entre modelos gratuitos.
+url = "http://127.0.0.1:3001/v1"
+modelo = "auto"               # plan B si el rápido falla
+modelo_rapido = "auto:fast"   # conversación por voz, regaños y clasificar ventanas
+modelo_vision = "auto"        # solo si activas pantalla.captura_para_dudas
+# Carpeta de FreeLLMAPI: si no está corriendo, Jarvis lo arranca solo y lee su clave.
+# Si lo dejas vacío, pon la clave en la variable de entorno FREELLMAPI_KEY o en datos/jarvis.env.
+freellmapi_dir = ''
+arrancar_freellmapi = true
+timeout_s = 20
+
+[voz]
+activar = true
+# Voces de Microsoft (edge-tts): "es-MX-JorgeNeural", "es-CO-GonzaloNeural",
+# "es-ES-AlvaroNeural", "es-MX-DaliaNeural"…
+voz_tts = "es-MX-JorgeNeural"
+velocidad = "+8%"
+# Escucha siempre, sin botón: di «Jarvis» o «Hey Jarvis» al empezar (o al terminar) lo que
+# le pides. Si solo dices «Jarvis», suena un tono y espera tu orden. Todo se procesa en tu PC.
+palabra_clave = true
+umbral_palabra_clave = 0.5      # «hey Jarvis» rápido (openWakeWord)
+tecla_hablar = "ctrl+alt+j"
+# Whisper local: el de órdenes ("small"; "large-v3" es más preciso) y el que busca «Jarvis».
+whisper_modelo = "small"
+whisper_modelo_clave = "base"
+# "auto": GPU NVIDIA con el portátil enchufado, procesador con batería. O "cuda" / "cpu".
+whisper_dispositivo = "auto"
+max_grabacion_s = 15
+
+[camara]
+activar = true
+indice = 0
+fps = 5
+detectar_celular = true
+umbral_celular = 0.45
+
+[pantalla]
+# false = a la IA solo le llega el TÍTULO de la ventana activa.
+# true  = si el título no basta, le manda una captura de pantalla a un modelo con visión.
+captura_para_dudas = false
+
+[foco]
+gracia_distraccion_s = 12
+gracia_mensajeria_s = 90
+gracia_celular_s = 8
+gracia_ausencia_s = 45
+gracia_somnolencia_s = 10
+cabeza_abajo_es_estudio = true   # escribir en la tableta / papel cuenta como estudio
+min_entre_avisos_s = 40
+escalar_cada_s = 75
+
+[sesion]
+duracion_min = 50            # bloque de estudio por defecto
+descanso_min = 10
+meta_diaria_min = 180
+
+[recordatorios]
+activar = true
+horas = ["10:00", "16:00", "20:00"]
+
+[informes]
+# Carpeta con vídeos de un curso, para contar cuántos has visto ('' = no contar).
+carpeta_videos = ''
+
+# ----------------------------------------------------------------------------
+#  Temas de estudio. "alias" sirve para decirlo por voz ("voy a estudiar mates");
+#  "palabras" y "carpetas" le dicen a Jarvis qué cuenta como estudio.
+# ----------------------------------------------------------------------------
+[[temas]]
+nombre = "Matemáticas – cálculo y álgebra"
+alias = ["matematicas", "mates", "calculo", "algebra"]
+palabras = ["derivada", "integral", "limite", "matriz", "vector", "ecuacion", "algebra", "calculo"]
+carpetas = []
+
+[[temas]]
+nombre = "Física – mecánica y ondas"
+alias = ["fisica", "mecanica", "ondas"]
+palabras = ["fisica", "newton", "energia", "fuerza", "ondas", "oscilador", "momento"]
+carpetas = []
+
+[[temas]]
+nombre = "Programación – Python"
+alias = ["programacion", "python", "codigo"]
+palabras = ["python", "funcion", "clase", "algoritmo", "stack overflow", "documentation"]
+carpetas = []
+
+# ----------------------------------------------------------------------------
+#  Qué cuenta como qué (se busca en el título de la ventana o en el programa).
+# ----------------------------------------------------------------------------
+[apps]
+estudio = ["matlab", "simulink", "sumatrapdf", "acrobat", "acrord32", "xournalpp", "onenote",
+           "texstudio", "overleaf", "geogebra", "desmos", "wolfram"]
+herramientas = ["gemini", "chatgpt", "claude", "deepl", "traductor", "google translate",
+                "wordreference", "wikipedia", "calculadora", "calculator"]
+mensajeria = ["whatsapp", "telegram", "discord", "messenger", "signal"]
+distracciones = ["instagram", "tiktok", "facebook", "netflix", "twitch", "disney+", "prime video",
+                 "crunchyroll", "reddit", "9gag", "pinterest", "/ x", "twitter", "youtube shorts",
+                 "#shorts", "steam", "epic games", "league of legends", "valorant", "roblox",
+                 "minecraft", "mercado libre", "amazon.", "aliexpress", "temu", "shein"]
+neutras = ["explorador de archivos", "administrador de tareas", "nueva pestaña", "new tab",
+           "program manager", "descargas"]
+
+# ----------------------------------------------------------------------------
+#  Fechas que Jarvis usa para motivarte ("te quedan 13 días para…").
+# ----------------------------------------------------------------------------
+[examenes]
+"Matemáticas – parcial 1" = 2026-11-10
+"Física – parcial" = 2026-11-25
+"Programación – entrega del proyecto" = 2026-12-14

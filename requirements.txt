@@ -1,0 +1,22 @@
+# Interfaz de escritorio
+PySide6>=6.7
+# Cámara: rostro, postura de la cabeza y detección de celular (todo local)
+mediapipe>=0.10.14
+numpy
+# Pantalla y procesos
+psutil
+Pillow
+# Voz: escuchar (Whisper local en la GPU), palabra clave "hey Jarvis" y hablar
+sounddevice
+soundfile
+faster-whisper==1.2.1
+nvidia-cublas-cu12
+nvidia-cudnn-cu12>=9,<10
+openwakeword
+onnxruntime
+edge-tts
+# LLM vía FreeLLMAPI
+httpx
+# Informes y LEEME
+matplotlib
+pymupdf
